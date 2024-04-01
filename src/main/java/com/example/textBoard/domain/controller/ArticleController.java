@@ -101,7 +101,7 @@ public class ArticleController { // Model + Controller
         return "form";
     }
 
-    @GetMapping("/updateform")
+    @GetMapping("/update")
     public String updateForm(){
         return "update";
     }
