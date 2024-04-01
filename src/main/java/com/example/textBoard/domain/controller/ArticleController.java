@@ -105,9 +105,11 @@ public class ArticleController { // Model + Controller
     public String add(@RequestParam("title") String title, @RequestParam("body") String body, Model model) {
 
         articleRepository.saveArticle(title, body);
-        ArrayList<Article> articleList = articleRepository.findAll();
-        model.addAttribute("articleList",articleList);
-        return "list";
+
+        // 문제 원인 : add 요청의 결과 화면을 list로 보여주고 있다.
+        // 문제 해결 : add url을 list로 바꾸면 된다
+        // controller 에서 주소를 바꾸는 법 : redirect
+        return "redirect:/list"; //브라우저의 주소가 /list로 바뀜
     }
 
     //입력화면 보여주기
