@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>상세보기</title>
+</head>
+<body>
+<h1>상세보기</h1>
+<div>
+    <div th:text="'제목 : '+ ${article.title}"></div>
+    <div th:text="'내용 : '+ ${article.body}"></div>
+</div>
+<a th:href="@{|/delete/${article.id}|}">삭제</a>
+</body>
+</html>
