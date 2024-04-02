@@ -11,5 +11,7 @@
     <div th:text="'내용 : '+ ${article.body}"></div>
 </div>
 <a th:href="@{|/delete/${article.id}|}">삭제</a>
+<a th:href="@{|/update/${article.id}|}">수정</a>
+<a th:href="@{|/list|}">리스트</a>
 </body>
 </html>

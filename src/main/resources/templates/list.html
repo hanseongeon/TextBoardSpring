@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>게시물 목록</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <h1>목록</h1>
@@ -13,5 +14,10 @@
     </li>
 </ul>
 <a href="/add">등록하기</a>
+<br>
+<form action="/search" method="get">
+    <input type="text" name="keyword">
+    <input type="submit" value="검색하기">
+</form>
 </body>
 </html>

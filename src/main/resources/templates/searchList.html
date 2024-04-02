@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<ul>
+    <li th:each="i:${searchedList}">
+        <a th:href="@{|/detail/${i.id}|}" th:text="${i.id}+'번게시물'"></a>
+        <br>
+        <span th:text="${i.title}"></span>
+    </li>
+    <a th:href="@{|/list|}">리스트</a>
+</ul>
+</body>
+</html>

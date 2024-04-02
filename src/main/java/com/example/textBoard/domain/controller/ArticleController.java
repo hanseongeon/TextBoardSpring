@@ -19,13 +19,13 @@ import java.util.Scanner;
 public class ArticleController { // Model + Controller
 
     CommonUtil commonUtil = new CommonUtil();
-    Repository articleRepository = new ArticleMemRepository(); // 메모리 DB
+    Repository articleRepository = new ArticleMySQLRepository();
     @RequestMapping("/search")
-    @ResponseBody
-    public ArrayList<Article> search(@RequestParam(value = "keyword", defaultValue = "") String keyword) {
+    public String search(@RequestParam(value = "keyword", defaultValue = "") String keyword,Model model) {
 
         ArrayList<Article> searchedList = articleRepository.findArticleByKeyword(keyword);
-        return searchedList;
+        model.addAttribute("searchedList",searchedList);
+        return "searchList";
     }
 
     @RequestMapping("/detail/{num}")
@@ -59,20 +59,33 @@ public class ArticleController { // Model + Controller
         return "redirect:/list";
     }
 
-    @PostMapping("/update")
-    public String update(@RequestParam("num") int num,
-                         @RequestParam("title") String title,
-                         @RequestParam("body") String body
-                        ) {
+    @GetMapping("/update/{num}")
+    public String update(@PathVariable("num") int num,Model model) {
 
         Article article = articleRepository.findArticleById(num);
 
         if (article == null) {
-
-            return "없는 게시물입니다.";
+            throw new RuntimeException("없는 게시물 입니다.");
         }
-        articleRepository.updateArticle(article, title, body);
-        return "redirect:/list";
+
+        model.addAttribute("article",article);
+        return "updateForm";
+
+    }
+
+    @PostMapping("/update/{num}")
+    public String update(@PathVariable("num") int num,
+                         @RequestParam("title") String title,
+                         @RequestParam("body") String body){
+
+        Article article = articleRepository.findArticleById(num);
+
+        if (article == null) {
+            throw new RuntimeException("없는 게시물 입니다.");
+        }
+
+        articleRepository.updateArticle(article,title,body);
+        return "redirect:/detail/%d".formatted(num);
     }
 
     @RequestMapping("/list")
@@ -101,8 +114,5 @@ public class ArticleController { // Model + Controller
         return "form";
     }
 
-    @GetMapping("/update")
-    public String updateForm(){
-        return "update";
-    }
+
 }
